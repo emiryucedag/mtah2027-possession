@@ -1,0 +1,31 @@
+# Paths are relative to the repository root unless absolute. Override with the environment variables noted.
+paths:
+  match_data_dir: data/match            # MTAH_DATA_DIR: folder holding tactical/ (ATD, homography, smart tagging)
+  external_dir: external                # MTAH_EXTERNAL_DIR: downloaded external data (not committed)
+  cache_dir: cache                      # MTAH_CACHE_DIR: derived tables (not committed)
+  scorer_dir: third_party/more-than-a-hack-2027/evaluation   # MTAH_SCORER_DIR: the organisers' scorer
+  output_dir: submission
+
+time:
+  fps: 25
+  block_frames: 5                       # the HSMM / HMM decoder runs on blocks of this many frames
+
+pitch:
+  length_m: 105.3
+  width_m: 68.0
+
+model:
+  decoder: hsmm                         # explicit-duration decoder
+  durations: min_geometric              # min_geometric | lognormal (both fitted on the external matches)
+  alpha: 0.2                            # evidence temperature (chosen on external data only)
+  beta: 0.5                             # weight of the speed evidence on frames without a ball (external data)
+  dfl_weight: 3.0                       # per-frame weight of the DFL matches in the dead / live classifier
+  context: false                        # temporal context features (centred windows of 1-5 s); evaluated, not used in the submission
+  p_stay: 0.97                          # only used by the geometric HMM (experiments)
+  leave_to_other_team: 0.59             # from a live state: probability of moving to the other team
+  leave_to_dead: 0.41                   # from a live state: probability of moving to dead ball
+
+match:
+  n_frames: 199319
+  halves: [[11185, 90651], [110808, 190197]]   # graded blocks (inclusive), from the challenge documentation
+  second_half_dead_prefix: 2934                # graded frames before the second-half kick-off, all dead ball
