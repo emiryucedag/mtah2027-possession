@@ -1,11 +1,11 @@
 # Never commit match data, downloaded external data, caches or environments.
-data/
-external/
-cache/
-third_party/
-out/
-submission/
-.venv/
+/data/
+/external/
+/cache/
+/third_party/
+/out/
+/submission/
+/.venv/
 __pycache__/
 *.pyc
 *.mp4
